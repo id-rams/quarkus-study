@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Fruit REST service</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/wingcss/0.1.8/wing.min.css" rel="stylesheet"/>
+    <!-- Load AngularJS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("FruitManagement", []);
+
+        //Controller Part
+        app.controller("FruitManagementController", function ($scope, $http) {
+
+            //Initialize page with default data which is blank in this example
+            $scope.tasks = [];
+            $scope.del_name = "";
+
+            $scope.form = {
+                name: "",
+                description: ""
+            };
+
+            //Now load the data from server
+            _refreshPageData();
+
+            //HTTP POST methods for add tasks
+            $scope.add = function () {
+                var data = {"name": $scope.form.name, "description": $scope.form.description};
+
+                $http({
+                    method: "POST",
+                    url: '/tasks',
+                    data: angular.toJson(data),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_success, _error);
+            };
+
+            $scope.del = function (name) {
+                $http({
+                    method: "DELETE",
+                    url: '/tasks/' + name,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(_success, _error);
+            };
+
+            /* Private Methods */
+
+            //HTTP GET- get all tasks collection
+            function _refreshPageData() {
+                $http({
+                    method: 'GET',
+                    url: '/tasks'
+                }).then(function successCallback(response) {
+                    $scope.tasks = response.data;
+                }, function errorCallback(response) {
+                    console.log(response.statusText);
+                });
+            }
+
+            function _success(response) {
+                _refreshPageData();
+                _clearForm();
+            }
+
+            function _error(response) {
+                alert(response.data.message || response.statusText);
+            }
+
+            //Clear the form
+            function _clearForm() {
+                $scope.form.name = "";
+                $scope.form.description = "";
+                $scope.del_name = "";
+            }
+        });
+    </script>
+</head>
+<body ng-app="FruitManagement" ng-controller="FruitManagementController">
+
+<div class="container">
+    <h1>REST Service - List</h1>
+
+    <h3>Add a task to list</h3>
+    <form ng-submit="add()">
+        <div class="row">
+            <div class="col-6"><input ng-model="form.name" placeholder="Name" size="60" type="text"/></div>
+        </div>
+        <div class="row">
+            <div class="col-6"><input ng-model="form.description" placeholder="Description" size="60" type="text"/>
+            </div>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+
+    <!--    <h3>Delete a task from list</h3>-->
+    <!--    <form ng-submit="del(del_name)">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-6">-->
+    <!--                <input type="text" placeholder="Name" ng-model="del_name" size="60"/></div>-->
+    <!--        </div>-->
+    <!--        <input type="submit" value="Delete">-->
+    <!--    </form>-->
+    <h3>List</h3>
+    <div class="row">
+        <div class="col-2">Name</div>
+        <div class="col-4">Description</div>
+        <div class="col-4">Delete</div>
+    </div>
+    <div class="row" ng-repeat="task in tasks">
+        <div class="col-2">{{ task.name }}</div>
+        <div class="col-4">{{ task.description }}</div>
+        <div class="col-2">
+            <form ng-submit="del(task.name)"><input type="submit" value="x"></form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
