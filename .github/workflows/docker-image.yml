@@ -20,7 +20,7 @@ jobs:
     - name: Build the project sources 
       run: ./gradlew build
     - name: Build the Docker image
-      run: docker build -f src/main/docker/Dockerfile.jvm -t idrams56/quarkus-tasks .
+      run: docker build -f src/main/docker/Dockerfile -t idrams56/quarkus-tasks .
     - name: Push to Docker Hub
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
