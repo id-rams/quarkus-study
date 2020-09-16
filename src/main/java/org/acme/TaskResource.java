@@ -32,7 +32,11 @@ public class TaskResource {
 
     @POST
     public void add(@Valid String payload) {
-        if (!payload.isEmpty() && !payload.contains("<script>")) {
+        if (!payload.isEmpty()
+                && !payload.contains("<script>")
+                && !payload.isBlank()
+                && !payload.startsWith(" ")
+        ) {
             var fruit = jsonb.fromJson(payload, Task.class);
             listWord.add(fruit);
         }
