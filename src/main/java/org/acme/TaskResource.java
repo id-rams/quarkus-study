@@ -21,7 +21,7 @@ public class TaskResource {
 
     public TaskResource() {
         jsonb = JsonbBuilder.create();
-        listWord.add(new Task("First task", "nixuya"));
+        listWord.add(new Task("my first task ", "learn docker..."));
     }
 
     @GET
