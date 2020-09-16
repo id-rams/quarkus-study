@@ -14,5 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Build the project sources 
+      run: ./gradlew build
     - name: Build the Docker image
       run: docker build -f src/main/docker/Dockerfile.jvm -t idrams56/quarkus-tasks .
+    - name: Pulbisher the Docker image
+      run: docker push idrams56/quarkus-tasks
