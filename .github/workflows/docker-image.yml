@@ -19,7 +19,7 @@ jobs:
       - name: Build the project sources
         run: ./gradlew build
 
-      - name: Push to Docker Hub
+      - name: Push to docker hub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
