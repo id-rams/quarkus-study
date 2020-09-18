@@ -21,7 +21,7 @@ public class TaskResource {
 
     public TaskResource() {
         jsonb = JsonbBuilder.create();
-        listWord.add(new Task("my first task", "learn docker..."));
+        listWord.add(new Task("Hello Anton", "... learn docker ..."));
     }
 
     @GET
@@ -32,14 +32,16 @@ public class TaskResource {
 
     @POST
     public void add(@Valid String payload) {
-        if (!payload.isEmpty()
-                && !payload.contains("<script>")
-                && !payload.isBlank()
-                && !payload.startsWith(" ")
+
+        var task = jsonb.fromJson(payload, Task.class);
+        if (
+                !task.name.isEmpty()
+                        && !task.description.isEmpty()
+                        && !task.name.contains("<script")
         ) {
-            var fruit = jsonb.fromJson(payload, Task.class);
-            listWord.add(fruit);
+            listWord.add(task);
         }
+
     }
 
     @DELETE
