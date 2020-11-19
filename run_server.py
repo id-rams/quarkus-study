@@ -18,17 +18,17 @@ def app_index():
     return str
 
 
-@app.route('/get_all_email')
+@app.route('/get_all_email', methods=['GET'])
 def get_all_email():
     return  jsonify(default_data)
 
 
-@app.route('/get_email/<uuid>')
+@app.route('/get_email/<uuid>', methods=['GET'])
 def get_email_by_id(uuid):
     return  default_data.get(uuid)
 
 
-@app.route('/delete_email')
+@app.route('/delete_email', methods=['GET'])
 def delete_emails():
     default_data.clear()
     return jsonify("all emails deleted. ")
