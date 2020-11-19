@@ -8,6 +8,7 @@ COPY ./ /tests
 # INSTALL REQUIREMENTS
 #============================================
 WORKDIR /tests/
+RUN lc
 RUN pip3 install -Ur requirements.txt
 
 #============================================
