@@ -2,6 +2,7 @@ package org.acme;
 
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 
+import javax.annotation.security.RolesAllowed;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.validation.Valid;
