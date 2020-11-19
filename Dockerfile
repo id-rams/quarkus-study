@@ -1,16 +1,17 @@
 FROM python:3.9.0-slim-buster
 #============================================
-# COPY
+# COPY REQUIREMENTS
 #============================================
-COPY ./ /tests
+COPY ./requirements.txt /app/requirements.txt
 
 #============================================
 # INSTALL REQUIREMENTS
 #============================================
-WORKDIR /tests/
-RUN ls
-RUN pip3 install -Ur requirements.txt
+WORKDIR /app
 
+RUN pip install -Ur requirements.txt
+
+COPY . /app
 #============================================
 # SET ENV
 #============================================
