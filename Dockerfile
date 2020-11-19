@@ -6,6 +6,7 @@ FROM python:3.9.0-slim-buster
 COPY . /app
 WORKDIR /app/
 RUN pip install -U Flask
+RUN pip install -U uuid
 #============================================
 # SET ENV
 #============================================
