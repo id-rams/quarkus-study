@@ -1,4 +1,4 @@
-name: Pipeline deploy to a production
+name: Pipeline deploy to production
 
 on:
   push:
