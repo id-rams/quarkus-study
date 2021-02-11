@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route('/received_email', methods=['POST'])
 def generate_auth_device_key():
     body = request.data
-    default_data["huyser"] = body
+    with open("data.poh", "wb") as file_:
+        file_.write(body)
     return "ok"
 
     # req_data = request.get_json(silent=True)
