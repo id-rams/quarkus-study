@@ -7,10 +7,14 @@ app = Flask(__name__)
 
 @app.route('/received_email', methods=['POST'])
 def generate_auth_device_key():
-    req_data = request.get_json(silent=True)
-    id = str(uuid.uuid4())
-    default_data[id] = req_data
+    body = request.data
+    default_data["huyser"] = body
     return "ok"
+
+    # req_data = request.get_json(silent=True)
+    # id = str(uuid.uuid4())
+    # default_data[id] = req_data
+    # return "ok"
 
 
 @app.route('/', methods=['GET'])
